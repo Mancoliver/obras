@@ -59,6 +59,7 @@
             padding: 1.5rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            text-align: center;
         }
         
         .work-card:hover {
@@ -75,6 +76,29 @@
         
         .work-card p {
             margin-bottom: 0.5rem;
+        }
+        
+        .work-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .no-image {
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            color: #777;
         }
         
         .theme {
@@ -114,7 +138,6 @@
                 <option value="suspense">Suspense</option>
                 <option value="fantasia">Fantasia</option>
                 <option value="biografia">Biografia</option>
-                <!-- Adicione mais temas conforme necessário -->
             </select>
         </section>
         
@@ -136,37 +159,22 @@
                 title: "O Caminho das Estrelas",
                 description: "Uma jornada épica através de galáxias desconhecidas.",
                 themes: ["ficcao", "fantasia"],
-                year: 2020
+                year: 2020,
+                image: "https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg"
             },
             {
                 title: "Amor em Tempos de Guerra",
                 description: "Uma história de amor que desafia os horrores da guerra.",
                 themes: ["romance", "ficcao"],
-                year: 2018
+                year: 2018,
+                image: "https://m.media-amazon.com/images/I/71X7I7bUuVL._AC_UF1000,1000_QL80_.jpg"
             },
             {
                 title: "O Mistério da Casa Abandonada",
                 description: "Um thriller psicológico que mantém o leitor em suspense até a última página.",
                 themes: ["suspense"],
-                year: 2021
-            },
-            {
-                title: "Minha Vida: Uma Autobiografia",
-                description: "As memórias e lições de uma vida extraordinária.",
-                themes: ["biografia"],
-                year: 2019
-            },
-            {
-                title: "O Reino Perdido",
-                description: "Uma aventura em um mundo de magia e criaturas míticas.",
-                themes: ["fantasia", "ficcao"],
-                year: 2022
-            },
-            {
-                title: "Corações em Conflito",
-                description: "Um triângulo amoroso que testa os limites da lealdade.",
-                themes: ["romance"],
-                year: 2017
+                year: 2021,
+                image: "https://m.media-amazon.com/images/I/81WZ6QvGZ2L._AC_UF1000,1000_QL80_.jpg"
             }
         ];
         
@@ -195,6 +203,7 @@
                 
                 workCard.innerHTML = `
                     <h3>${work.title}</h3>
+                    ${work.image ? `<img src="${work.image}" alt="Capa de ${work.title}">` : '<div class="no-image">Sem imagem</div>'}
                     <p><strong>Ano:</strong> ${work.year}</p>
                     <p>${work.description}</p>
                     <div><strong>Temas:</strong> ${themesHTML}</div>
@@ -219,24 +228,14 @@
                 'suspense': 'Suspense',
                 'fantasia': 'Fantasia',
                 'biografia': 'Biografia'
-                // Adicione mais temas conforme necessário
             };
             return themes[themeKey] || themeKey;
         }
         
         // Inicializar a página
         document.addEventListener('DOMContentLoaded', function() {
-            // Definir o ano atual no footer
             document.getElementById('year').textContent = new Date().getFullYear();
-            
-            // Exibir todas as obras inicialmente
             displayWorks();
-            
-            // Popular o dropdown de temas
-            const themeFilter = document.getElementById('theme-filter');
-            
-            // Manter as opções já existentes e adicionar outras se necessário
-            // (neste exemplo, já estamos adicionando todas no HTML inicial)
         });
     </script>
 </body>
