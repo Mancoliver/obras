@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Obras Literárias</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .filter-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        select {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        .works-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .work-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .work-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .work-card p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .theme {
+            display: inline-block;
+            background-color: #e0e0e0;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            background-color: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Minhas Obras Literárias</h1>
+            <p>Uma coleção dos meus trabalhos como autor</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="filter-section">
+            <label for="theme-filter">Filtrar por tema:</label>
+            <select id="theme-filter" onchange="filterWorks()">
+                <option value="all">Todos os temas</option>
+                <option value="ficcao">Ficção</option>
+                <option value="romance">Romance</option>
+                <option value="suspense">Suspense</option>
+                <option value="fantasia">Fantasia</option>
+                <option value="biografia">Biografia</option>
+                <!-- Adicione mais temas conforme necessário -->
+            </select>
+        </section>
+        
+        <section class="works-container" id="works-container">
+            <!-- As obras serão inseridas aqui via JavaScript -->
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Seu Nome. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Dados das obras - substitua com suas próprias obras
+        const works = [
+            {
+                title: "O Caminho das Estrelas",
+                description: "Uma jornada épica através de galáxias desconhecidas.",
+                themes: ["ficcao", "fantasia"],
+                year: 2020
+            },
+            {
+                title: "Amor em Tempos de Guerra",
+                description: "Uma história de amor que desafia os horrores da guerra.",
+                themes: ["romance", "ficcao"],
+                year: 2018
+            },
+            {
+                title: "O Mistério da Casa Abandonada",
+                description: "Um thriller psicológico que mantém o leitor em suspense até a última página.",
+                themes: ["suspense"],
+                year: 2021
+            },
+            {
+                title: "Minha Vida: Uma Autobiografia",
+                description: "As memórias e lições de uma vida extraordinária.",
+                themes: ["biografia"],
+                year: 2019
+            },
+            {
+                title: "O Reino Perdido",
+                description: "Uma aventura em um mundo de magia e criaturas míticas.",
+                themes: ["fantasia", "ficcao"],
+                year: 2022
+            },
+            {
+                title: "Corações em Conflito",
+                description: "Um triângulo amoroso que testa os limites da lealdade.",
+                themes: ["romance"],
+                year: 2017
+            }
+        ];
+        
+        // Função para exibir as obras
+        function displayWorks(filterTheme = 'all') {
+            const container = document.getElementById('works-container');
+            container.innerHTML = '';
+            
+            const filteredWorks = filterTheme === 'all' 
+                ? works 
+                : works.filter(work => work.themes.includes(filterTheme));
+            
+            if (filteredWorks.length === 0) {
+                container.innerHTML = '<p>Nenhuma obra encontrada para este tema.</p>';
+                return;
+            }
+            
+            filteredWorks.forEach(work => {
+                const workCard = document.createElement('div');
+                workCard.className = 'work-card';
+                
+                let themesHTML = '';
+                work.themes.forEach(theme => {
+                    themesHTML += `<span class="theme">${getThemeName(theme)}</span>`;
+                });
+                
+                workCard.innerHTML = `
+                    <h3>${work.title}</h3>
+                    <p><strong>Ano:</strong> ${work.year}</p>
+                    <p>${work.description}</p>
+                    <div><strong>Temas:</strong> ${themesHTML}</div>
+                `;
+                
+                container.appendChild(workCard);
+            });
+        }
+        
+        // Função para filtrar as obras
+        function filterWorks() {
+            const themeFilter = document.getElementById('theme-filter');
+            const selectedTheme = themeFilter.value;
+            displayWorks(selectedTheme);
+        }
+        
+        // Função para obter o nome completo do tema
+        function getThemeName(themeKey) {
+            const themes = {
+                'ficcao': 'Ficção',
+                'romance': 'Romance',
+                'suspense': 'Suspense',
+                'fantasia': 'Fantasia',
+                'biografia': 'Biografia'
+                // Adicione mais temas conforme necessário
+            };
+            return themes[themeKey] || themeKey;
+        }
+        
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Definir o ano atual no footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Exibir todas as obras inicialmente
+            displayWorks();
+            
+            // Popular o dropdown de temas
+            const themeFilter = document.getElementById('theme-filter');
+            
+            // Manter as opções já existentes e adicionar outras se necessário
+            // (neste exemplo, já estamos adicionando todas no HTML inicial)
+        });
+    </script>
+</body>
+</html>
