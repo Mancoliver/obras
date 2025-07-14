@@ -123,7 +123,7 @@
 <body>
     <header>
         <div class="container">
-            <h1>Minhas Obras Literárias</h1>
+            <h1>Minhas Obras Literárias(Em Construção)</h1>
             <p>Uma coleção dos meus trabalhos como autor</p>
         </div>
     </header>
@@ -133,6 +133,7 @@
             <label for="theme-filter">Filtrar por tema:</label>
             <select id="theme-filter" onchange="filterWorks()">
                 <option value="all">Todos os temas</option>
+                <option value="espiritual">Espiritual</option>
                 <option value="ficcao">Ficção</option>
                 <option value="romance">Romance</option>
                 <option value="suspense">Suspense</option>
@@ -148,7 +149,7 @@
     
     <footer>
         <div class="container">
-            <p>&copy; <span id="year"></span> Seu Nome. Todos os direitos reservados.</p>
+            <p>&copy; <span id="year"></span> Arceno. Todos os direitos reservados.</p>
         </div>
     </footer>
     
@@ -156,10 +157,10 @@
         // Dados das obras - substitua com suas próprias obras
         const works = [
             {
-                title: "O Caminho das Estrelas",
-                description: "Uma jornada épica através de galáxias desconhecidas.",
-                themes: ["ficcao", "fantasia"],
-                year: 2020,
+                title: "Nos Caminhos da Umbanda - O Guardião dos Portais",
+                description: "Pré lançamento da Capa",
+                themes: ["ficcao", "fantasia", "espiritual"],
+                year: 2025,
                 image: "https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg"
             },
             {
@@ -223,6 +224,7 @@
         // Função para obter o nome completo do tema
         function getThemeName(themeKey) {
             const themes = {
+                'espiritual': 'Espiritual',
                 'ficcao': 'Ficção',
                 'romance': 'Romance',
                 'suspense': 'Suspense',
